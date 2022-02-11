@@ -16,11 +16,18 @@ github_repo: osodevops/some-repo
 # How to use this project
 usage: |-
   ### Requirements
-  None.
-  ### Role Variables
-  Some information
-  ```yaml
-    ---
+  Terraform 1.14
+
+  Run 
+
+  ```
+    terraform plan
+  ```
+  See examples for an example successful plan.
+
+  Then run apply to provision the vpn on your aws account.
+  ```
+    terraform apply
   ```
 # Example usage
 examples: |-
@@ -28,7 +35,357 @@ examples: |-
   When you provide your vpc name, we use the tag name on the subnets to find the private subnets. Such as `name = Private`, will get all of your subnets
   that have the tag name of Private. We also get the ipv4 cidr of the vpc, from the name too. Therefore, the vpc name and tag value is required to get the correct ipv4 cidr value and subnets.
 
-  Navigate 
+  Plan output. 
   ```
-   
+  Terraform will perform the following actions:
+
+  # module.vpn-aws-client.aws_acm_certificate.ca will be created
+  + resource "aws_acm_certificate" "ca" {
+      + arn                       = (known after apply)
+      + certificate_body          = (known after apply)
+      + domain_name               = (known after apply)
+      + domain_validation_options = (known after apply)
+      + id                        = (known after apply)
+      + private_key               = (sensitive value)
+      + status                    = (known after apply)
+      + subject_alternative_names = (known after apply)
+      + validation_emails         = (known after apply)
+      + validation_method         = (known after apply)
+    }
+
+  # module.vpn-aws-client.aws_acm_certificate.root will be created
+  + resource "aws_acm_certificate" "root" {
+      + arn                       = (known after apply)
+      + certificate_body          = (known after apply)
+      + certificate_chain         = (known after apply)
+      + domain_name               = (known after apply)
+      + domain_validation_options = (known after apply)
+      + id                        = (known after apply)
+      + private_key               = (sensitive value)
+      + status                    = (known after apply)
+      + subject_alternative_names = (known after apply)
+      + validation_emails         = (known after apply)
+      + validation_method         = (known after apply)
+    }
+
+  # module.vpn-aws-client.aws_acm_certificate.server will be created
+  + resource "aws_acm_certificate" "server" {
+      + arn                       = (known after apply)
+      + certificate_body          = (known after apply)
+      + certificate_chain         = (known after apply)
+      + domain_name               = (known after apply)
+      + domain_validation_options = (known after apply)
+      + id                        = (known after apply)
+      + private_key               = (sensitive value)
+      + status                    = (known after apply)
+      + subject_alternative_names = (known after apply)
+      + validation_emails         = (known after apply)
+      + validation_method         = (known after apply)
+    }
+
+  # module.vpn-aws-client.aws_cloudwatch_log_group.vpn will be created
+  + resource "aws_cloudwatch_log_group" "vpn" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + name              = "/aws/vpn/Example/logs"
+      + retention_in_days = 365
+      + tags              = {
+          + "AccountType" = "IAC"
+          + "Application" = "aws-vpn"
+          + "CostCode"    = "VPN"
+          + "Deployment"  = "Terraform"
+          + "EnvName"     = "Example"
+          + "Environment" = "Staging"
+          + "Name"        = "Example-Client-VPN-Log-Group"
+          + "SquadName"   = "oso"
+          + "TFState"     = "aws-vpn-client"
+          + "TFVersion"   = "1.14"
+        }
+    }
+
+  # module.vpn-aws-client.aws_cloudwatch_log_stream.vpn will be created
+  + resource "aws_cloudwatch_log_stream" "vpn" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + log_group_name = "/aws/vpn/Example/logs"
+      + name           = "vpn-usage"
+    }
+
+  # module.vpn-aws-client.aws_ec2_client_vpn_endpoint.client_vpn_endpoint will be created
+  + resource "aws_ec2_client_vpn_endpoint" "client_vpn_endpoint" {
+      + arn                    = (known after apply)
+      + client_cidr_block      = "192.168.0.0/22"
+      + description            = "Example-Client-VPN"
+      + dns_name               = (known after apply)
+      + dns_servers            = [
+          + "8.8.8.8",
+        ]
+      + id                     = (known after apply)
+      + server_certificate_arn = (known after apply)
+      + split_tunnel           = false
+      + status                 = (known after apply)
+      + tags                   = {
+          + "AccountType" = "IAC"
+          + "Application" = "aws-vpn"
+          + "CostCode"    = "VPN"
+          + "Deployment"  = "Terraform"
+          + "EnvName"     = "Example"
+          + "Environment" = "Staging"
+          + "Name"        = "Example-Client-VPN"
+          + "SquadName"   = "oso"
+          + "TFState"     = "aws-vpn-client"
+          + "TFVersion"   = "1.14"
+        }
+      + transport_protocol     = "udp"
+
+      + authentication_options {
+          + root_certificate_chain_arn = (known after apply)
+          + type                       = "certificate-authentication"
+        }
+
+      + connection_log_options {
+          + cloudwatch_log_group  = "/aws/vpn/Example/logs"
+          + cloudwatch_log_stream = "vpn-usage"
+          + enabled               = true
+        }
+    }
+
+  # module.vpn-aws-client.aws_ec2_client_vpn_network_association.client_vpn_network_association["subnet-12345"] will be created
+  + resource "aws_ec2_client_vpn_network_association" "client_vpn_network_association" {
+      + association_id         = (known after apply)
+      + client_vpn_endpoint_id = (known after apply)
+      + id                     = (known after apply)
+      + security_groups        = (known after apply)
+      + status                 = (known after apply)
+      + subnet_id              = "subnet-12345"
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpn-aws-client.aws_ec2_client_vpn_network_association.client_vpn_network_association["subnet-54321"] will be created
+  + resource "aws_ec2_client_vpn_network_association" "client_vpn_network_association" {
+      + association_id         = (known after apply)
+      + client_vpn_endpoint_id = (known after apply)
+      + id                     = (known after apply)
+      + security_groups        = (known after apply)
+      + status                 = (known after apply)
+      + subnet_id              = "subnet-54321"
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpn-aws-client.aws_ec2_client_vpn_network_association.client_vpn_network_association["subnet-999"] will be created
+  + resource "aws_ec2_client_vpn_network_association" "client_vpn_network_association" {
+      + association_id         = (known after apply)
+      + client_vpn_endpoint_id = (known after apply)
+      + id                     = (known after apply)
+      + security_groups        = (known after apply)
+      + status                 = (known after apply)
+      + subnet_id              = "subnet-999"
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpn-aws-client.aws_security_group.vpn-sg will be created
+  + resource "aws_security_group" "vpn-sg" {
+      + arn                    = (known after apply)
+      + description            = "AWS VPN Client - Managed by Terraform"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "AWS-Example-VPN-SG"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "AccountType" = "IAC"
+          + "Application" = "aws-vpn"
+          + "CostCode"    = "VPN"
+          + "Deployment"  = "Terraform"
+          + "Environment" = "Staging"
+          + "Name"        = "AWS-Example-VPN-SG"
+          + "SquadName"   = "oso"
+          + "TFState"     = "aws-vpn-client"
+          + "TFVersion"   = "1.14"
+        }
+      + vpc_id                 = "vpc-12345"
+    }
+
+  # module.vpn-aws-client.aws_security_group_rule.detected-sg-ingress-vpc will be created
+  + resource "aws_security_group_rule" "detected-sg-ingress-vpc" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "ingress"
+    }
+
+  # module.vpn-aws-client.aws_security_group_rule.vpn-sg-egress will be created
+  + resource "aws_security_group_rule" "vpn-sg-egress" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # module.vpn-aws-client.null_resource.authorize-client-internal-access will be created
+  + resource "null_resource" "authorize-client-internal-access" {
+      + id = (known after apply)
+    }
+
+  # module.vpn-aws-client.null_resource.authorize-client-vpn-ingress will be created
+  + resource "null_resource" "authorize-client-vpn-ingress" {
+      + id = (known after apply)
+    }
+
+  # module.vpn-aws-client.null_resource.client_vpn_route_internet_access[0] will be created
+  + resource "null_resource" "client_vpn_route_internet_access" {
+      + id = (known after apply)
+    }
+
+  # module.vpn-aws-client.null_resource.client_vpn_route_internet_access[1] will be created
+  + resource "null_resource" "client_vpn_route_internet_access" {
+      + id = (known after apply)
+    }
+
+  # module.vpn-aws-client.null_resource.client_vpn_route_internet_access[2] will be created
+  + resource "null_resource" "client_vpn_route_internet_access" {
+      + id = (known after apply)
+    }
+
+  # module.vpn-aws-client.tls_cert_request.root will be created
+  + resource "tls_cert_request" "root" {
+      + cert_request_pem = (known after apply)
+      + id               = (known after apply)
+      + key_algorithm    = "RSA"
+      + private_key_pem  = (sensitive value)
+
+      + subject {
+          + common_name  = "Example.vpn.client"
+          + organization = "ExampleOrganization"
+        }
+    }
+
+  # module.vpn-aws-client.tls_cert_request.server will be created
+  + resource "tls_cert_request" "server" {
+      + cert_request_pem = (known after apply)
+      + id               = (known after apply)
+      + key_algorithm    = "RSA"
+      + private_key_pem  = (sensitive value)
+
+      + subject {
+          + common_name  = "Example.vpn.server"
+          + organization = "ExampleOrganization"
+        }
+    }
+
+  # module.vpn-aws-client.tls_locally_signed_cert.root will be created
+  + resource "tls_locally_signed_cert" "root" {
+      + allowed_uses          = [
+          + "key_encipherment",
+          + "digital_signature",
+          + "client_auth",
+        ]
+      + ca_cert_pem           = (known after apply)
+      + ca_key_algorithm      = "RSA"
+      + ca_private_key_pem    = (sensitive value)
+      + cert_pem              = (known after apply)
+      + cert_request_pem      = (known after apply)
+      + early_renewal_hours   = 0
+      + id                    = (known after apply)
+      + ready_for_renewal     = true
+      + validity_end_time     = (known after apply)
+      + validity_period_hours = 87600
+      + validity_start_time   = (known after apply)
+    }
+
+  # module.vpn-aws-client.tls_locally_signed_cert.server will be created
+  + resource "tls_locally_signed_cert" "server" {
+      + allowed_uses          = [
+          + "key_encipherment",
+          + "digital_signature",
+          + "server_auth",
+        ]
+      + ca_cert_pem           = (known after apply)
+      + ca_key_algorithm      = "RSA"
+      + ca_private_key_pem    = (sensitive value)
+      + cert_pem              = (known after apply)
+      + cert_request_pem      = (known after apply)
+      + early_renewal_hours   = 0
+      + id                    = (known after apply)
+      + ready_for_renewal     = true
+      + validity_end_time     = (known after apply)
+      + validity_period_hours = 87600
+      + validity_start_time   = (known after apply)
+    }
+
+  # module.vpn-aws-client.tls_private_key.ca will be created
+  + resource "tls_private_key" "ca" {
+      + algorithm                  = "RSA"
+      + ecdsa_curve                = "P224"
+      + id                         = (known after apply)
+      + private_key_pem            = (sensitive value)
+      + public_key_fingerprint_md5 = (known after apply)
+      + public_key_openssh         = (known after apply)
+      + public_key_pem             = (known after apply)
+      + rsa_bits                   = 2048
+    }
+
+  # module.vpn-aws-client.tls_private_key.root will be created
+  + resource "tls_private_key" "root" {
+      + algorithm                  = "RSA"
+      + ecdsa_curve                = "P224"
+      + id                         = (known after apply)
+      + private_key_pem            = (sensitive value)
+      + public_key_fingerprint_md5 = (known after apply)
+      + public_key_openssh         = (known after apply)
+      + public_key_pem             = (known after apply)
+      + rsa_bits                   = 2048
+    }
+
+  # module.vpn-aws-client.tls_private_key.server will be created
+  + resource "tls_private_key" "server" {
+      + algorithm                  = "RSA"
+      + ecdsa_curve                = "P224"
+      + id                         = (known after apply)
+      + private_key_pem            = (sensitive value)
+      + public_key_fingerprint_md5 = (known after apply)
+      + public_key_openssh         = (known after apply)
+      + public_key_pem             = (known after apply)
+      + rsa_bits                   = 2048
+    }
+
+  # module.vpn-aws-client.tls_self_signed_cert.ca will be created
+  + resource "tls_self_signed_cert" "ca" {
+      + allowed_uses          = [
+          + "cert_signing",
+          + "crl_signing",
+        ]
+      + cert_pem              = (known after apply)
+      + early_renewal_hours   = 0
+      + id                    = (known after apply)
+      + is_ca_certificate     = true
+      + key_algorithm         = "RSA"
+      + private_key_pem       = (sensitive value)
+      + ready_for_renewal     = true
+      + validity_end_time     = (known after apply)
+      + validity_period_hours = 87600
+      + validity_start_time   = (known after apply)
+
+      + subject {
+          + common_name  = "Example.vpn.ca"
+          + organization = "ExampleOrganization"
+        }
+    }
+
+
   ```
