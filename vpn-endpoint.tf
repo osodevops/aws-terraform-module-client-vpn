@@ -26,7 +26,6 @@ resource "aws_ec2_client_vpn_endpoint" "client_vpn_endpoint" {
 }
 
 resource "aws_ec2_client_vpn_network_association" "client_vpn_network_association" {
-  # count                  = length(data.aws_subnet_ids.private.ids)
   for_each = (toset(data.aws_subnet_ids.private.ids))
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id
   subnet_id              = each.value
