@@ -1,6 +1,6 @@
 
 <!-- markdownlint-disable -->
-# aws-terraform-module-vpn
+# AWS Client VPN Module
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
@@ -44,7 +44,7 @@ Run
 ```
   terraform plan
 ```
-See examples for an example successful plan.
+See Examples for an example plan.
 
 Then run apply to provision the vpn on your aws account.
 ```
@@ -424,7 +424,7 @@ Terraform will perform the following actions:
 
 ## Need some help
 
-File a GitHub [issue](https://github.com/osodevops/some-repo/issues), send us an [email][email] or [tweet us][twitter].
+File a GitHub [issue](https://github.com/osodevops/aws-terraform-module-client-vpn/issues), send us an [email][email] or [tweet us][twitter].
 
 ## The legals
 
@@ -441,13 +441,13 @@ Looking for support applying emerging technologies in your business? We’d love
 Start adopting new technologies by checking out [our other projects][github], [follow us on twitter][twitter], [join our team of leaders and challengers][careers], or [contact us][contact] to find the right technology to support your business.[![Beacon][beacon]][website]
 
   [logo]: https://oso-public-resources.s3.eu-west-1.amazonaws.com/oso-logo-green.png
-  [website]: https://oso.sh?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=website
-  [github]: https://github.com/osodevops?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=github
-  [careers]: https://oso.sh/careers/?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=careers
-  [contact]: https://oso.sh/contact/?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=contact
-  [linkedin]: https://www.linkedin.com/company/oso-devops?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=linkedin
-  [twitter]: https://twitter.com/osodevops?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=twitter
-  [email]: mailto:enquiries@oso.sh?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=email
+  [website]: https://oso.sh?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=website
+  [github]: https://github.com/osodevops?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=github
+  [careers]: https://oso.sh/careers/?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=careers
+  [contact]: https://oso.sh/contact/?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=contact
+  [linkedin]: https://www.linkedin.com/company/oso-devops?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=linkedin
+  [twitter]: https://twitter.com/osodevops?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=twitter
+  [email]: mailto:enquiries@oso.sh?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=email
   [readme_header_img]: https://oso-public-resources.s3.eu-west-1.amazonaws.com/oso-animation.gif
-  [readme_header_link]: https://oso.sh/what-we-do/?utm_source=github&utm_medium=readme&utm_campaign=osodevops/some-repo&utm_content=readme_header_link
-  [beacon]: https://github-analyics.ew.r.appspot.com/G-WV0Q3HYW08/osodevops/some-repo?pixel&cs=github&cm=readme&an=some-repo
+  [readme_header_link]: https://oso.sh/what-we-do/?utm_source=github&utm_medium=readme&utm_campaign=osodevops/aws-terraform-module-client-vpn&utm_content=readme_header_link
+  [beacon]: https://github-analyics.ew.r.appspot.com/G-WV0Q3HYW08/osodevops/aws-terraform-module-client-vpn?pixel&cs=github&cm=readme&an=aws-terraform-module-client-vpn
