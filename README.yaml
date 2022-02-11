@@ -5,13 +5,13 @@
 #
 
 # Name of this project
-name: "aws-terraform-module-vpn"
+name: "AWS Client VPN Module"
 
 # Short description of this project
 description: |-
   Module can be used to create a VPN on aws and provide access to private subnets. 
 # Canonical GitHub repo
-github_repo: osodevops/some-repo
+github_repo: osodevops/aws-terraform-module-client-vpn
 
 # How to use this project
 usage: |-
@@ -23,7 +23,7 @@ usage: |-
   ```
     terraform plan
   ```
-  See examples for an example successful plan.
+  See Examples for an example plan.
 
   Then run apply to provision the vpn on your aws account.
   ```
