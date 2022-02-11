@@ -24,17 +24,11 @@ usage: |-
   ```
 # Example usage
 examples: |-
-  Follow this example
-  ```yaml
-      ---
-  ```
-related:
-  - name: ""
-    description: ""
-    url: "https://github.com/osodevops/"
+  See `/example` directory for a working example. Change the values in tfvars, to match your environment. Such as the vpc name. 
+  When you provide your vpc name, we use the tag name on the subnets to find the private subnets. Such as `name = Private`, will get all of your subnets
+  that have the tag name of Private. We also get the ipv4 cidr of the vpc, from the name too. Therefore, the vpc name and tag value is required to get the correct ipv4 cidr value and subnets.
 
-# References
-references:
-  - name: ""
-    description: ""
-    url: "https://"
+  Navigate 
+  ```
+   
+  ```
