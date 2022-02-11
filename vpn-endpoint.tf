@@ -18,17 +18,18 @@ resource "aws_ec2_client_vpn_endpoint" "client_vpn_endpoint" {
 
   tags = merge(
     var.tags,
-    map(
-      "Name", "${var.name}-Client-VPN",
-      "EnvName", var.name
-    )
+    {
+      "Name" = "${var.name}-Client-VPN",
+      "EnvName" = var.name
+    }
   )
 }
 
 resource "aws_ec2_client_vpn_network_association" "client_vpn_network_association" {
-  count                  = length(var.subnet_ids)
+  # count                  = length(data.aws_subnet_ids.private.ids)
+  for_each = (toset(data.aws_subnet_ids.private.ids))
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id
-  subnet_id              = element(var.subnet_ids, count.index)
+  subnet_id              = each.value
   lifecycle {
     ignore_changes = [subnet_id]
   }
@@ -49,7 +50,7 @@ resource "null_resource" "authorize-client-vpn-ingress" {
 
 resource "null_resource" "authorize-client-internal-access" {
   provisioner "local-exec" {
-    command = "aws --region ${var.aws_region} ec2 authorize-client-vpn-ingress --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id} --target-network-cidr ${var.vpc_cidr} --authorize-all-groups --description 'Access to internal network'"
+    command = "aws --region ${var.aws_region} ec2 authorize-client-vpn-ingress --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id} --target-network-cidr ${data.aws_vpc.this.cidr_block_associations[0].cidr_block} --authorize-all-groups --description 'Access to internal network'"
   }
 
   depends_on = [
@@ -59,9 +60,21 @@ resource "null_resource" "authorize-client-internal-access" {
 }
 
 resource "null_resource" "client_vpn_route_internet_access" {
-  count     = length(var.subnet_ids)
+  count     = length(data.aws_subnet_ids.private.ids)
   provisioner "local-exec" {
     when    = create
-    command = "aws ec2 create-client-vpn-route --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id} --destination-cidr-block 0.0.0.0/0 --target-vpc-subnet-id ${var.subnet_ids[count.index]} --description Internet-Access --region ${var.aws_region}"
+    command = "aws ec2 create-client-vpn-route --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id} --destination-cidr-block 0.0.0.0/0 --target-vpc-subnet-id ${data.aws_subnet_ids.private[count.index]} --description Internet-Access --region ${var.aws_region}"
+    on_failure = continue
   }
+
+
+  # provisioner "local-exec" {
+  #   when    = destroy
+  #   command = "aws ec2 delete-client-vpn-route --client-vpn-endpoint-id ${aws_ec2_client_vpn_endpoint.client_vpn_endpoint.id} --destination-cidr-block 0.0.0.0/0 --target-vpc-subnet-id ${data.aws_subnet_ids.private[count.index]} --destination-cidr-block 0.0.0.0/0 --target-vpc-subnet-id ${var.subnet_list[count.index]}  --region ${var.aws_region}"
+  #   on_failure = continue
+  # }
+
+  # lifecycle {
+  #   ignore_changes=[count]
+  # }
 }

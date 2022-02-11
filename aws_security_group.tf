@@ -1,10 +1,13 @@
 resource "aws_security_group" "vpn-sg" {
-  vpc_id      = data.aws_vpc.vpn.id
+  vpc_id      = data.aws_vpc.this.id
   name        = "AWS-${var.name}-VPN-SG"
   description = "AWS VPN Client - Managed by Terraform"
 
   tags = merge(var.tags,
-    map("Name", "AWS-${var.name}-VPN-SG"))
+    {
+      "Name" = "AWS-${var.name}-VPN-SG"
+    }
+  )
 }
 
 resource "aws_security_group_rule" "detected-sg-ingress-vpc" {

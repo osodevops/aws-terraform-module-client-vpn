@@ -11,15 +11,15 @@ variable "organization_name" {
   default     = "ACME, Inc"
 }
 
-variable "tags" {
-  type        = map
-  default     = {}
-  description = "Extra tags to attach to resources"
-}
-
 variable "logs_retention" {
   default     = 365
   description = "Retention in days for CloudWatch Log Group"
+}
+
+variable "common_tags" {
+  type        = map
+  default     = {}
+  description = "Common tags to attach to resources"
 }
 
 variable "vpc_name" {
