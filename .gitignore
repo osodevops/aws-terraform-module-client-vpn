@@ -1,0 +1,5 @@
+
+example/terraform.tfstate
+example/.terraform/modules/modules.json
+*.0_x5
+*.hcl

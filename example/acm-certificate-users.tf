@@ -15,8 +15,8 @@ resource "tls_cert_request" "example" {
 resource "tls_locally_signed_cert" "example" {
   cert_request_pem   = tls_cert_request.example.cert_request_pem
   ca_key_algorithm   = "RSA"
-  ca_private_key_pem = tls_private_key.ca.private_key_pem
-  ca_cert_pem        = tls_self_signed_cert.ca.cert_pem
+  ca_private_key_pem = module.vpn-aws-client.tls_private_key_pem_output
+  ca_cert_pem        = module.vpn-aws-client.tls_self_signed_cert_cert_pem_output
 
   validity_period_hours = 87600
 
@@ -30,5 +30,5 @@ resource "tls_locally_signed_cert" "example" {
 resource "aws_acm_certificate" "example" {
   private_key       = tls_private_key.example.private_key_pem
   certificate_body  = tls_locally_signed_cert.example.cert_pem
-  certificate_chain = tls_self_signed_cert.ca.cert_pem
+  certificate_chain = module.vpn-aws-client.tls_self_signed_cert_cert_pem_output
 }
